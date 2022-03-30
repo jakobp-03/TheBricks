@@ -2,3 +2,56 @@ html{
     width: 100%;
     height: 100%;
 }
+body{
+    background-image: url("../image/brick.png");
+    background-repeat:repeat-;
+
+}
+canvas{
+    background-color: rgb(189, 215, 250);
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+}
+#main{
+    width: 700px;
+    height: 800px;
+    margin: auto;
+    background-color: rgb(241, 234, 234);
+}
+h1{
+    margin: auto;
+    width: 220px;
+    font-size: 45px;
+    margin-bottom: 10px;
+    color: rgb(255, 255, 255);
+}
+#tut{
+    width: 210px;
+    margin: auto;
+    float: right;
+}
+#info{
+    padding-left: 20px;
+    float: left;
+    margin: auto;
+    width: 200px;
+}
+mark{
+    background-color: transparent;
+}
+p{
+    font-size: 18px;
+    line-height: 30px;
+}
+#controller{
+    margin-right: 10px;
+    font-size: 30px;
+    width: 100px;
+    height: 60px;
+}
+#mouse{
+    
+    font-size: 30px;
+    width: 100px;
+    height: 60px;
+}
