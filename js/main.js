@@ -29,10 +29,18 @@ var izpisTimer;
 var start = true;
 var temp;
 var gover = true;
+var mousemov=false;
 var timerTemp = 1;
 var img = document.getElementById("brick");
 var pattern = ctx.createPatttern(img, "repeat");
 function drawIt() {
+  //change text in button with id "start" to restart
+  if (start) {
+    document.getElementById("start").innerHTML = "Restart";
+  } else {
+    document.getElementById("start").innerHTML = "Start";
+  } 
+  
   //timer
   function timer() {
     sekundeI = (sekundeI = sekunde % 60) > 9 ? sekundeI : "0" + sekundeI;
@@ -42,7 +50,7 @@ function drawIt() {
 
     $("#cas").html(izpisTimer);
 
-    if (start == true) {
+    if (start == true && gover == true) {
       sekunde++;
       console.log("start true" + sekunde);
       sekundeI = (sekundeI = sekunde % 60) > 9 ? sekundeI : "0" + sekundeI;
@@ -86,8 +94,15 @@ function drawIt() {
       paddlex = evt.pageX - canvasMinX;
     }
   }
-  //$(document).mousemove(onMouseMove);
-
+  function mouseClik() {
+    if (mousemov == false) {
+      mousemov = true;
+      $(document).mousemove(onMouseMove);
+    } else {
+      mousemov = false;
+    }
+  }
+  
   function initbricks() {
     //inicializacija opek - polnjenje v tabelo
     NROWS = 5;
@@ -215,7 +230,7 @@ function drawIt() {
         console.log("bounce!");
       } else {
         start = false;
-        clearInterval(IntervalId);
+        //clearInterval(IntervalId);
         //console.log("Game Over");
         gover = false;
       }
@@ -224,8 +239,34 @@ function drawIt() {
     x += dx;
 
     y += dy;
-  }
 
+    if(start==false){
+      gameover();
+      $(document).off("keydown");
+      $(document).off("keyup");
+      $(document).off("keypress");
+      $(document).off("mousemove");
+      $(document).off("click");
+      dx = 0;
+      dy = 0;
+
+    }
+      
+  }
+  function gameover() {
+    clear();
+    ctx.fillStyle="black";
+    ctx.font = "bold 72px sans-serif";
+    ctx.fillText("Game Over", WIDTH / 2 - 200, HEIGHT / 2);
+    ctx.font = "bold 36px sans-serif";
+    ctx.fillText("Score: " + tocke, WIDTH / 2 - 200, HEIGHT / 2 + 100);
+    ctx.fillText("Time:" +izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
+    start = true;
+  }
+  //if button with id "start" is clicked reload the page
+  $("#start").click(function() {
+    location.reload();
+  });
   init();
   init_paddle();
   init_mouse();
