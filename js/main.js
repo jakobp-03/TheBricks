@@ -249,7 +249,6 @@ function drawIt() {
       $(document).off("click");
       dx = 0;
       dy = 0;
-
     }
       
   }
