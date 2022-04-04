@@ -31,10 +31,19 @@ var temp;
 var gover = true;
 var mousemov=false;
 var timerTemp = 1;
+var gameWin=false;
+var isClicked = false;
 var img = document.getElementById("brick");
-var pattern = ctx.createPatttern(img, "repeat");
+function mouse() {
+  if(isClicked==false){
+  isClicked=true;
+    document.getElementById("mouse").style.backgroundColor = "lightgreen";
+  }else{
+    isClicked=false;
+    document.getElementById("mouse").style.backgroundColor = "";}
+}
 function drawIt() {
-  //change text in button with id "start" to restart
+  mousemov=false;
   if (start) {
     document.getElementById("start").innerHTML = "Restart";
   } else {
@@ -52,7 +61,7 @@ function drawIt() {
 
     if (start == true && gover == true) {
       sekunde++;
-      console.log("start true" + sekunde);
+      //console.log("start true" + sekunde);
       sekundeI = (sekundeI = sekunde % 60) > 9 ? sekundeI : "0" + sekundeI;
       minuteI =
         (minuteI = Math.floor(sekunde / 60)) > 9 ? minuteI : "0" + minuteI;
@@ -60,7 +69,7 @@ function drawIt() {
 
       $("#cas").html(izpisTimer);
     } else {
-      console.log("start false" + sekunde);
+      //console.log("start false" + sekunde);
       //sekunde=0;
       //izpisTimer = "00:00";
       $("#cas").html(izpisTimer);
@@ -94,15 +103,6 @@ function drawIt() {
       paddlex = evt.pageX - canvasMinX;
     }
   }
-  function mouseClik() {
-    if (mousemov == false) {
-      mousemov = true;
-      $(document).mousemove(onMouseMove);
-    } else {
-      mousemov = false;
-    }
-  }
-  
   function initbricks() {
     //inicializacija opek - polnjenje v tabelo
     NROWS = 5;
@@ -210,6 +210,9 @@ function drawIt() {
       dy = -dy;
       bricks[row][col] = 0;
       tocke += 1;
+      if(tocke>=25){
+        gameWin=true;
+      }
       $("#tocke").html(tocke);
       console.log("hit!");
       temp = "hsl(" + 360 * Math.random() + ", 50%, 50%)";
@@ -239,7 +242,9 @@ function drawIt() {
     x += dx;
 
     y += dy;
-
+    if(gameWin==true){
+      gamewon();
+    }
     if(start==false){
       gameover();
       $(document).off("keydown");
@@ -252,6 +257,7 @@ function drawIt() {
     }
       
   }
+
   function gameover() {
     clear();
     ctx.fillStyle="black";
@@ -259,10 +265,38 @@ function drawIt() {
     ctx.fillText("Game Over", WIDTH / 2 - 200, HEIGHT / 2);
     ctx.font = "bold 36px sans-serif";
     ctx.fillText("Score: " + tocke, WIDTH / 2 - 200, HEIGHT / 2 + 100);
-    ctx.fillText("Time:" +izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
+    ctx.fillText("Time: " +izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
     start = true;
   }
-  //if button with id "start" is clicked reload the page
+  function gamewon() {
+    clear();
+    ctx.fillStyle="black";
+    ctx.font = "bold 72px sans-serif";
+    ctx.fillText("You Won!", WIDTH / 2 - 200, HEIGHT / 2);  
+    ctx.font = "bold 36px sans-serif";
+    ctx.fillText("Score: " + tocke, WIDTH / 2 - 200, HEIGHT / 2 + 100);
+    ctx.fillText("Time: " +izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
+    start = true;
+    dx=0;
+    dy=0;
+    //stop the timer
+    clearInterval(intTimer);
+    paddlex = -100;
+    paddlew = 0;
+    paddleh = 0;
+  }
+  $("#mouse").click(function() {
+    if (mousemov == true) {
+      //disable mouse movement
+      $(document).off("mousemove");
+      $(document).off("click");
+      mousemov = false; console.log("MouseOFF");
+    } else if(mousemov==false){
+      mousemov = true; console.log("MouseON");
+      $(document).mousemove(onMouseMove);
+    }
+
+  });
   $("#start").click(function() {
     location.reload();
   });
