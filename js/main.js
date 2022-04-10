@@ -6,6 +6,7 @@ var WIDTH;
 var HEIGHT;
 var r = 10;
 var ctx;
+var spc=1;
 var paddlex;
 var paddleh;
 var paddlew;
@@ -33,6 +34,10 @@ var mousemov=false;
 var timerTemp = 1;
 var gameWin=false;
 var isClicked = false;
+var snd = new Audio("audio/Break.wav"); 
+var snd2 = new Audio("audio/Impact.wav");
+var snd3= new Audio("audio/Win.mp3");
+var snd4= new Audio("audio/GameOver.mp3");
 var img = document.getElementById("brick");
 function mouse() {
   if(isClicked==false){
@@ -214,6 +219,7 @@ function drawIt() {
         gameWin=true;
       }
       $("#tocke").html(tocke);
+      snd.play();
       console.log("hit!");
       temp = "hsl(" + 360 * Math.random() + ", 50%, 50%)";
       document.getElementById("info").style.color = temp;
@@ -231,6 +237,7 @@ function drawIt() {
         dy = -dy;
         //start=true;
         console.log("bounce!");
+        snd2.play();
       } else {
         start = false;
         //clearInterval(IntervalId);
@@ -244,6 +251,10 @@ function drawIt() {
     y += dy;
     if(gameWin==true){
       gamewon();
+      if(spc==1){
+        snd3.play();
+        spc++;
+      }
     }
     if(start==false){
       gameover();
@@ -254,6 +265,11 @@ function drawIt() {
       $(document).off("click");
       dx = 0;
       dy = 0;
+      if(spc==1){
+        snd4.play();
+        spc++;
+      }
+      
     }
       
   }
