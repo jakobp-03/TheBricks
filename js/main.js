@@ -1,5 +1,5 @@
 var x = 150;
-var y = 150;
+var y = 150;//a
 var dx = 2;
 var dy = 4;
 var WIDTH;
