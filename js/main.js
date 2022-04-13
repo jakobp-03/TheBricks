@@ -34,11 +34,23 @@ var mousemov=false;
 var timerTemp = 1;
 var gameWin=false;
 var isClicked = false;
+var colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"];
 var snd = new Audio("audio/Break.wav"); 
 var snd2 = new Audio("audio/Impact.wav");
 var snd3= new Audio("audio/Win.mp3");
 var snd4= new Audio("audio/GameOver.mp3");
+var brick = new Image();
+brick.src = "img/brick.png";
 var img = document.getElementById("brick");
+
+function onLoad() {
+  //write Start on canvas 
+  ctx = document.getElementById("canvas").getContext("2d");
+  ctx.font = "70px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText("Press Start", 110,300);
+  ctx.fillText("To Play!", 170,400);
+}
 function mouse() {
   if(isClicked==false){
   isClicked=true;
@@ -48,6 +60,7 @@ function mouse() {
     document.getElementById("mouse").style.backgroundColor = "";}
 }
 function drawIt() {
+  document.getElementById("mouse").style.visibility = "visible";
   mousemov=false;
   if (start) {
     document.getElementById("start").innerHTML = "Restart";
@@ -183,11 +196,12 @@ function drawIt() {
     rect(paddlex, HEIGHT - paddleh, paddlew, paddleh);
 
     for (i = 0; i < NROWS; i++) {
-      if (i == 0) ctx.fillStyle = "red";
-      else if (i == 1) ctx.fillStyle = "green";
-      else if (i == 2) ctx.fillStyle = "blue";
-      else if (i == 3) ctx.fillStyle = "black";
-      else if (i == 4) ctx.fillStyle = "lime";
+      if (i == 0) ctx.fillStyle = "black";
+      else if (i == 1) ctx.fillStyle = "#ff0000";
+      else if (i == 2) ctx.fillStyle = "#ff7f00";
+      else if (i == 3) ctx.fillStyle = "#ffff00";
+      else if (i == 4) ctx.fillStyle = "#00ff00";
+      
 
       for (j = 0; j < NCOLS; j++) {
         if (bricks[i][j] == 1) {
