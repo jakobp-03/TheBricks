@@ -1,31 +1,38 @@
 html{
     width: 100%;
     height: 100%;
+    background-image: url("../image/brick.png");
 }
 body{
-    background-image: url("../image/brick.png");
-    background-repeat:repeat-;
-
+    font-family: Arial, Helvetica, sans-serif;
 }
 canvas{
-    background-color: rgb(189, 215, 250);
+    background: rgb(84,156,252);
+    background: -moz-linear-gradient(0deg, rgba(84,156,252,1) 0%, rgba(123,179,255,1) 35%, rgba(189,215,250,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(84,156,252,1) 0%, rgba(123,179,255,1) 35%, rgba(189,215,250,1) 100%);
+    background: linear-gradient(0deg, rgba(84,156,252,1) 0%, rgba(123,179,255,1) 35%, rgba(189,215,250,1) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#549cfc",endColorstr="#bdd7fa",GradientType=1);
     padding-bottom: 2px;
     margin-bottom: 10px;
+    border-radius: 10px;
 }
 #main{
     width: 600px;
     height: 700px;
     margin: auto;
     background-color: rgb(241, 234, 234);
+    box-shadow: 0px 0px 10px #0adce4;
+    border-radius: 10px;
 }
 h1{
     margin: auto;
-    width: 220px;
+    width: 240px;
     font-size: 45px;
     margin-bottom: 10px;
-    color: rgb(255, 255, 255);
+    color: rgb(220, 235, 255);
 }
 #tut{
+    font-size: 16px;
     width: 210px;
     margin: auto;
     float: right;
@@ -45,13 +52,16 @@ p{
 }
 #start{
     margin-right: 10px;
+    font-size: 50px;
+    width: 220px;
+    height: 60px;
+}
+#mouse{
     font-size: 30px;
     width: 110px;
     height: 60px;
 }
-#mouse{
-    
-    font-size: 30px;
-    width: 110px;
-    height: 60px;
+button{
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px #0ab1e4;
 }

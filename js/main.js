@@ -1,5 +1,5 @@
 var x = 150;
-var y = 150;//a
+var y = 150;
 var dx = 2;
 var dy = 4;
 var WIDTH;
@@ -34,11 +34,16 @@ var mousemov=false;
 var timerTemp = 1;
 var gameWin=false;
 var isClicked = false;
-var colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"];
+//make color array
+var colors = [
+  "#804000",
+  "#cc6600",
+  "#ff8c1a"];
 var snd = new Audio("audio/Break.wav"); 
 var snd2 = new Audio("audio/Impact.wav");
 var snd3= new Audio("audio/Win.mp3");
 var snd4= new Audio("audio/GameOver.mp3");
+var snd5=new Audio("audio/thunk2.mp3");
 var brick = new Image();
 brick.src = "img/brick.png";
 var img = document.getElementById("brick");
@@ -60,12 +65,15 @@ function mouse() {
     document.getElementById("mouse").style.backgroundColor = "";}
 }
 function drawIt() {
-  document.getElementById("mouse").style.visibility = "visible";
+  document.getElementById("mouse").style.display = "";
   mousemov=false;
   if (start) {
     document.getElementById("start").innerHTML = "Restart";
+    document.getElementById("start").style.width ="110px"
+    document.getElementById("start").style.fontSize ="30px"
   } else {
     document.getElementById("start").innerHTML = "Start";
+    document.getElementById("start").style.width ="220px"
   } 
   
   //timer
@@ -196,14 +204,13 @@ function drawIt() {
     rect(paddlex, HEIGHT - paddleh, paddlew, paddleh);
 
     for (i = 0; i < NROWS; i++) {
-      if (i == 0) ctx.fillStyle = "black";
-      else if (i == 1) ctx.fillStyle = "#ff0000";
-      else if (i == 2) ctx.fillStyle = "#ff7f00";
-      else if (i == 3) ctx.fillStyle = "#ffff00";
-      else if (i == 4) ctx.fillStyle = "#00ff00";
       
 
       for (j = 0; j < NCOLS; j++) {
+        if (i==0 ||i>0 && j==0 || i>0&& j==4 || i==4&& j>0) ctx.fillStyle = "#804000";
+      else if (i == 1&& j>0&&j<4 ||i == 3&& j>0&&j<4 ||j==1&& i
+        >1&&i<4|| j==3&& i<4&&i>1) ctx.fillStyle = "#cc6600";
+      else if (i ==2&& j==2) ctx.fillStyle = "#ff8c1a";
         if (bricks[i][j] == 1) {
           rect(
             j * (BRICKWIDTH + PADDING) + PADDING,
@@ -234,14 +241,14 @@ function drawIt() {
       }
       $("#tocke").html(tocke);
       snd.play();
-      console.log("hit!");
-      temp = "hsl(" + 360 * Math.random() + ", 50%, 50%)";
+      //console.log("hit!");
+      temp = colors[Math.floor(Math.random() * colors.length)];
       document.getElementById("info").style.color = temp;
       document.getElementById("tut").style.color = temp;
     }
 
     if (x + dx > WIDTH - r || x + dx < r) {
-      dx = -dx;
+      dx = -dx; console.log("wall hit!");snd5.play();
     }
     if (y + dy < r) {
       dy = -dy;
@@ -250,7 +257,10 @@ function drawIt() {
         dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
         dy = -dy;
         //start=true;
-        console.log("bounce!");
+        //console.log("bounce!");
+        temp = "black";
+      document.getElementById("info").style.color = temp;
+      document.getElementById("tut").style.color = temp;
         snd2.play();
       } else {
         start = false;
@@ -291,9 +301,9 @@ function drawIt() {
   function gameover() {
     clear();
     ctx.fillStyle="black";
-    ctx.font = "bold 72px sans-serif";
+    ctx.font = "Bold 72px Arial";
     ctx.fillText("Game Over", WIDTH / 2 - 200, HEIGHT / 2);
-    ctx.font = "bold 36px sans-serif";
+    ctx.font = "Bold 36px Arial";
     ctx.fillText("Score: " + tocke, WIDTH / 2 - 200, HEIGHT / 2 + 100);
     ctx.fillText("Time: " +izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
     start = true;
@@ -301,9 +311,9 @@ function drawIt() {
   function gamewon() {
     clear();
     ctx.fillStyle="black";
-    ctx.font = "bold 72px sans-serif";
+    ctx.font = "Bold 72px Arial";
     ctx.fillText("You Won!", WIDTH / 2 - 200, HEIGHT / 2);  
-    ctx.font = "bold 36px sans-serif";
+    ctx.font = "Bold 36px Arial";
     ctx.fillText("Score: " + tocke, WIDTH / 2 - 200, HEIGHT / 2 + 100);
     ctx.fillText("Time: " +izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
     start = true;

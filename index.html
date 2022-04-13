@@ -11,12 +11,12 @@
 <script src="sweetalert2.all.min.js"></script>
 <script src="js/jQuery.js"></script>
 </head>
-<body onload="writeOL()">
-<h1>The Bricks</h1>
+<body>
+<h1 class="animate__animated animate__fadeIn">The Bricks</h1>
 <div id="main" class="animate__animated animate__fadeIn"><canvas id="canvas" width="600" height="600"></canvas>
 <p id="info">Točke: <mark id="tocke">0</mark>
 <br>Čas: <mark id="cas">00:00</mark></p>
-<button id="start" onclick="drawIt()">Start</button><button id="mouse" style="visibility: hidden;" onclick="mouse()">Mouse</button>
+<button id="start" onclick="drawIt()">Start</button><button id="mouse" style="display: none;" onclick="mouse()">Mouse</button>
 <p id="tut">Press A or &#8592; to move left!<br>Press D or &#8594; to move right!</p></div>
 </body>
 <script src="js/main.js"></script>
