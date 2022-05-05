@@ -34,7 +34,6 @@ var mousemov = false;
 var timerTemp = 1;
 var gameWin = false;
 var isClicked = false;
-//make color array
 var colors = ["#804000", "#cc6600", "#ff8c1a"];
 var snd = new Audio("audio/Break.wav");
 var snd2 = new Audio("audio/Impact.wav");
@@ -46,7 +45,6 @@ brick.src = "img/brick.png";
 var img = document.getElementById("brick");
 
 function onLoad() {
-  //write Start on canvas
   ctx = document.getElementById("canvas").getContext("2d");
   ctx.font = "70px Arial";
   ctx.fillStyle = "black";
@@ -329,7 +327,6 @@ function drawIt() {
     start = true;
     dx = 0;
     dy = 0;
-    //stop the timer
     clearInterval(intTimer);
     paddlex = -100;
     paddlew = 0;
@@ -337,7 +334,6 @@ function drawIt() {
   }
   $("#mouse").click(function () {
     if (mousemov == true) {
-      //disable mouse movement
       $(document).off("mousemove");
       $(document).off("click");
       mousemov = false;
